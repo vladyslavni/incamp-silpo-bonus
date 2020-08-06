@@ -9,13 +9,17 @@ namespace SilpoBonusCore.Tests
         private CheckoutService checkoutService;
         private Product milk_7;
         private Product bred_3;
+        private DateTime offer_time_1d;
+        private DateTime offer_time_expiered;
 
         public CheckoutServiceTest()
         {
             this.checkoutService = new CheckoutService();
             this.milk_7 = new Product(7, "Milk", Category.MILK);
             this.bred_3 = new Product(3, "Bread");
-        
+            this.offer_time_1d = DateTime.Now.AddDays(2);
+            this.offer_time_expiered = new DateTime(1992, 2, 1);
+
             checkoutService.OpenCheck();
         }
        
@@ -66,7 +70,7 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 12);
@@ -76,7 +80,7 @@ namespace SilpoBonusCore.Tests
         public void useOffer__whenCostLessThanRequired__doNothing() {
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 3);
@@ -88,10 +92,22 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2));
+            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_1d));
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 31);
+        }
+
+        [Fact]
+        void offer__timeExpiered() {
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_expiered));
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 17);
         }
     }
 }

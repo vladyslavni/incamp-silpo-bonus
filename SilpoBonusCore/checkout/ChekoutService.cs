@@ -29,7 +29,9 @@ namespace SilpoBonusCore
 
         public void UseOffer(Offer offer) 
         {
-            offer.apply(check);
+            if (offer.isValid()) {
+                offer.apply(check);
+            }
         }
 
     }

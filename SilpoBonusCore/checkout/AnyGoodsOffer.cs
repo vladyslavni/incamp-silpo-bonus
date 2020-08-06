@@ -9,7 +9,8 @@ namespace SilpoBonusCore
         public readonly int totalCost;
         public readonly int points;
 
-        public AnyGoodsOffer(int totalCost, int points) {
+        public AnyGoodsOffer(int totalCost, int points, DateTime expirationDate) : base(expirationDate)
+        {
             this.totalCost = totalCost;
             this.points = points;
         }

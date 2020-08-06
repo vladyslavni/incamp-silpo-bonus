@@ -15,7 +15,7 @@ namespace SilpoBonusCore
             this.category = category;
         }
     
-        public Product(int price, String name) : this(price, name, 0) {
+        public Product(int price, String name) : this(price, name, Category.NONE) {
             this.price = price;
             this.name = name;
         }
