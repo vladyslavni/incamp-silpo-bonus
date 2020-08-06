@@ -18,5 +18,8 @@ namespace SilpoBonusCore
             products.Add(product);
         }
 
+        public int GetTotalPoints() {
+            return 0;
+        }
     }
 }
