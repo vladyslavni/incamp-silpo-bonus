@@ -15,7 +15,8 @@ namespace SilpoBonusCore
         }
 
         public override void apply(Check check) {
-            
+            int points = check.GetCostByCategory(category);
+            check.AddPoints(points * (factor - 1));    
         }
 
     }
