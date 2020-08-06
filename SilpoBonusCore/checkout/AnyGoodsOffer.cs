@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SilpoBonusCore
 {
-    public class AnyGoodsOffer
+    public class AnyGoodsOffer : Offer
     {
         public readonly int totalCost;
         public readonly int points;
@@ -13,6 +13,9 @@ namespace SilpoBonusCore
             this.totalCost = totalCost;
             this.points = points;
         }
+
+        public override void apply(Check check)
+        {}
 
     }
 }
