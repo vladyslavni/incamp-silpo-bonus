@@ -30,5 +30,18 @@ namespace SilpoBonusCore.Tests
             Assert.Equal(check.GetTotalCost(), 10);
         }
 
+        [Fact]
+        public void addProduct__whenCheckIsClosed__opensNewCheck() {
+            CheckoutService checkoutService = new CheckoutService();
+
+            checkoutService.AddProduct(new Product(7, "Milk"));
+            Check milkCheck = checkoutService.CloseCheck();
+            Assert.Equal(milkCheck.GetTotalCost(), 7);
+
+            checkoutService.AddProduct(new Product(3, "Bred"));
+            Check bredCheck = checkoutService.CloseCheck();
+            Assert.Equal(bredCheck.GetTotalCost(), 3);
+        }
+
     }
 }
