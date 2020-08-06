@@ -28,5 +28,13 @@ namespace SilpoBonusCore
         {
             this.points += points;
         }
+
+        public int GetCostByCategory(Category category) 
+        {
+            return products.Where(p => p.category == category)
+                    .Select(p => p.price)
+                    .Aggregate(0, (a, b) => a + b);
+        }
+
     }
 }

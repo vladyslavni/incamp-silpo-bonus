@@ -13,7 +13,7 @@ namespace SilpoBonusCore.Tests
         public CheckoutServiceTest()
         {
             this.checkoutService = new CheckoutService();
-            this.milk_7 = new Product(7, "Milk");
+            this.milk_7 = new Product(7, "Milk", Category.MILK);
             this.bred_3 = new Product(3, "Bread");
         
             checkoutService.OpenCheck();
@@ -82,5 +82,16 @@ namespace SilpoBonusCore.Tests
             Assert.Equal(check.GetTotalPoints(), 3);
         }
 
+        [Fact]
+        void useOffer__factorByCategory() {
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2));
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 31);
+        }
     }
 }
