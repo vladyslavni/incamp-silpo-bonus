@@ -8,12 +8,15 @@ namespace SilpoBonusCore
     {
         private Check check;
 
+        private List<Offer> offers = new List<Offer>();
+
         public void OpenCheck()
         {
             this.check = new Check();
         }
 
-        public void AddProduct(Product product) {
+        public void AddProduct(Product product) 
+        {
             if (check == null) {
                 OpenCheck();
             }
@@ -27,12 +30,15 @@ namespace SilpoBonusCore
             return closedCheck;
         }
 
-        public void UseOffer(Offer offer) 
+        public void UseOffer() 
         {
-            if (offer.isValid()) {
-                offer.apply(check);
-            }
+            offers.FindAll(offer => offer.isValid())
+                .ForEach(offer => offer.apply(check));
         }
 
+        public void AddOffer(Offer offer) 
+        {
+            offers.Add(offer);
+        }
     }
 }

@@ -35,6 +35,5 @@ namespace SilpoBonusCore
                     .Select(p => p.price)
                     .Aggregate(0, (a, b) => a + b);
         }
-
     }
 }

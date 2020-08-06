@@ -70,7 +70,8 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            checkoutService.AddOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 12);
@@ -80,7 +81,8 @@ namespace SilpoBonusCore.Tests
         public void useOffer__whenCostLessThanRequired__doNothing() {
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            checkoutService.AddOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 3);
@@ -92,7 +94,8 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_1d));
+            checkoutService.AddOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_1d));
+            checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 31);
@@ -104,7 +107,8 @@ namespace SilpoBonusCore.Tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.UseOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_expiered));
+            checkoutService.AddOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_expiered));
+            checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 17);
