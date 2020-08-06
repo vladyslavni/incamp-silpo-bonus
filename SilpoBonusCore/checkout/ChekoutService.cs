@@ -26,5 +26,13 @@ namespace SilpoBonusCore
 
             return closedCheck;
         }
+
+        public void UseOffer(AnyGoodsOffer offer) 
+        {
+            if (offer.totalCost <= check.GetTotalCost()) {
+                check.AddPoints(offer.points);
+            }
+        }
+
     }
 }

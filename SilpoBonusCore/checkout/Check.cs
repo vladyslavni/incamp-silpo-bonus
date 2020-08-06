@@ -7,6 +7,7 @@ namespace SilpoBonusCore
     public class Check
     {
         private List<Product> products = new List<Product>();
+        private int points = 0;
 
         public int GetTotalCost()
         {
@@ -18,8 +19,14 @@ namespace SilpoBonusCore
             products.Add(product);
         }
 
-        public int GetTotalPoints() {
-            return 0;
+        public int GetTotalPoints() 
+        {
+            return GetTotalCost() + points;
+        }
+
+        public void AddPoints(int points) 
+        {
+            this.points += points;
         }
     }
 }

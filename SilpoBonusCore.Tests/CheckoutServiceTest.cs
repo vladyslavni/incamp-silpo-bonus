@@ -61,6 +61,26 @@ namespace SilpoBonusCore.Tests
             Assert.Equal(check.GetTotalPoints(), 10);
         }
 
+        [Fact]
+        public void useOffer__addOfferPoints() {
+            checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 12);
+        }
+
+        [Fact]
+        public void useOffer__whenCostLessThanRequired__doNothing() {
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.UseOffer(new AnyGoodsOffer(6, 2));
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 3);
+        }
 
     }
 }
