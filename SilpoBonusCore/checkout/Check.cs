@@ -35,5 +35,19 @@ namespace SilpoBonusCore
                     .Select(p => p.price)
                     .Aggregate(0, (a, b) => a + b);
         }
+
+        public int GetCostByTrademark(Trademark trademark) 
+        {
+            return products.Where(p => p.trademark == trademark)
+                    .Select(p => p.price)
+                    .Aggregate(0, (a, b) => a + b);
+        }
+
+        public int GetCostByProduct(Product product) 
+        {
+            return products.Where(p => p.Equals(product))
+                    .Select(p => p.price)
+                    .Aggregate(0, (a, b) => a + b);
+        }
     }
 }
