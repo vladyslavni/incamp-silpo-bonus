@@ -11,9 +11,18 @@ namespace SilpoBonusCore {
         }
         public abstract void apply(Check check);
     
-        public bool isValid() 
+        public abstract bool IsSatisfiesCondition(Check check);
+
+        public bool IsValid() 
         {
-            return expirationDate >= DateTime.Now;
+            return expirationDate > DateTime.Now;
+        }
+
+        public void TryToApply(Check check)
+        {
+            if (IsSatisfiesCondition(check) && IsValid()) {
+                apply(check);
+            }
         }
     }
 }

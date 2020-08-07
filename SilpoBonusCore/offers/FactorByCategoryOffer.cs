@@ -20,5 +20,11 @@ namespace SilpoBonusCore
             int points = check.GetCostByCategory(category);
             check.AddPoints(points * (factor - 1));    
         }
+
+        public override bool IsSatisfiesCondition(Check check) 
+        {
+            return check.GetCostByCategory(category) > 0;
+        }
+
     }
 }

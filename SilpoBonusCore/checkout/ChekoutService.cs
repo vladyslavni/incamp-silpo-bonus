@@ -32,8 +32,7 @@ namespace SilpoBonusCore
 
         public void UseOffer() 
         {
-            offers.FindAll(offer => offer.isValid())
-                .ForEach(offer => offer.apply(check));
+            offers.ForEach(offer => offer.TryToApply(check));
         }
 
         public void AddOffer(Offer offer) 

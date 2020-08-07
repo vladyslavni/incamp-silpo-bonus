@@ -22,5 +22,10 @@ namespace SilpoBonusCore
             }
         }
 
+        public override bool IsSatisfiesCondition(Check check) 
+        {
+            return check.GetTotalCost() > totalCost;
+        }
+
     }
 }
