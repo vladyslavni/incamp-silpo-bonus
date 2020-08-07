@@ -8,6 +8,7 @@ namespace SilpoBonusCore.Tests
 
         private CheckoutService checkoutService;
         private Product milk_7;
+        private Product milk_11;
         private Product bred_3;
         private DateTime offer_time_1d;
         private DateTime offer_time_expiered;
@@ -15,6 +16,7 @@ namespace SilpoBonusCore.Tests
         public CheckoutServiceTest()
         {
             this.checkoutService = new CheckoutService();
+            this.milk_11 = new Product(11, "Milk", Trademark.AMSZ);
             this.milk_7 = new Product(7, "Milk", Category.MILK);
             this.bred_3 = new Product(3, "Bread");
             this.offer_time_1d = DateTime.Now.AddDays(2);
@@ -99,6 +101,32 @@ namespace SilpoBonusCore.Tests
             Check check = checkoutService.CloseCheck();
 
             Assert.Equal(check.GetTotalPoints(), 31);
+        }
+
+        [Fact]
+        void useOffer__factorByTrademark() {
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.AddOffer(new FactorByTrademarkOffer(Trademark.AMSZ, 2, offer_time_1d));
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 47);
+        }
+
+        [Fact]
+        void useOffer__factorByProduct() {
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(bred_3);
+
+            checkoutService.AddOffer(new FactorByProductOffer(milk_11, 2, offer_time_1d));
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 47);
         }
 
         [Fact]
