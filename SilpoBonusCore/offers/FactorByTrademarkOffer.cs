@@ -25,6 +25,5 @@ namespace SilpoBonusCore
         {
             return check.GetCostByTrademark(trademark) > 0;
         }
-
     }
 }

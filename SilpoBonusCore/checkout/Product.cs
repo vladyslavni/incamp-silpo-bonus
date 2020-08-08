@@ -22,21 +22,5 @@ namespace SilpoBonusCore
         {}    
         public Product(int price, String name) : this(price, name, Category.NONE, Trademark.NONE) 
         {}
-
-        public override bool Equals(Object obj)
-        {
-            if (obj is Product) {
-                Product product = (Product) obj;
-
-                if ((this.name == product.name) && (this.price == product.price) 
-                    && (this.category == product.category) && (this.trademark == product.trademark)) 
-                {
-                    return true;
-                }
-                return false;
-            }
-
-            return false;
-        }
     }
 }

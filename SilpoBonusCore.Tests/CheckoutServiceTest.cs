@@ -130,11 +130,26 @@ namespace SilpoBonusCore.Tests
         }
 
         [Fact]
+        void useOffer__DiscountByProduct() {
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(bred_3);
+            Product discountProduct = new Product(11, "Milk", Trademark.AMSZ);
+
+
+            checkoutService.AddOffer(new PercentDiscountOffer(discountProduct, 50, offer_time_1d));
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalCost(), 25);
+        }
+
+        [Fact]
         void offer__timeExpiered() {
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
-
+            
             checkoutService.AddOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_expiered));
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();

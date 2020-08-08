@@ -8,10 +8,10 @@ namespace SilpoBonusCore
     {
         private List<Product> products = new List<Product>();
         private int points = 0;
-
+        private int savingMoney = 0;
         public int GetTotalCost()
         {
-            return products.Sum(product => product.price);
+            return products.Sum(product => product.price) - savingMoney;
         }
 
         public void AddProduct(Product product)
@@ -48,6 +48,16 @@ namespace SilpoBonusCore
             return products.Where(p => p.Equals(product))
                     .Select(p => p.price)
                     .Aggregate(0, (a, b) => a + b);
+        }
+        
+        public List<Product> GetDiscountProducts(Product product) 
+        {
+            return products.FindAll(p => p.Equals(product));
+        }
+
+        public void AddSavingMoney(int money)
+        {
+            this.savingMoney += money;
         }
     }
 }
