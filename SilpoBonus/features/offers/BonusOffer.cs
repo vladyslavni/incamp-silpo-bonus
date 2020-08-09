@@ -4,7 +4,7 @@ using SilpoBonus.core.checkout;
 using SilpoBonus.features.condition;
 using SilpoBonus.features.reward;
 
-namespace SilpoBonus.features
+namespace SilpoBonus.features.offers
 {
     public class BonusOffer : Offer
     {

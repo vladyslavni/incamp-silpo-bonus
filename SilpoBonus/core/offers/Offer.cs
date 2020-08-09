@@ -23,7 +23,8 @@ namespace SilpoBonus.core.offers {
 
         public void TryToApply(Check check)
         {
-            if (iCondition.IsSatisfies(check) && IsValid()) {
+            if (iCondition.IsSatisfies(check) && IsValid())
+            {
                 apply(check);
             }
         }

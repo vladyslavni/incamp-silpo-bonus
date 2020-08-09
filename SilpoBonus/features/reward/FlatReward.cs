@@ -13,7 +13,7 @@ namespace SilpoBonus.features.reward
 
         public int CalcPoints(Check check)
         {
-            return check.GetTotalCost() + points;
+            return points;
         }
     }
 }

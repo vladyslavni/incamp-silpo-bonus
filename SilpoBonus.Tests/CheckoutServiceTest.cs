@@ -1,9 +1,15 @@
 using System;
 using Xunit;
-using SilpoBonus.core;
-using SilpoBonus.feaures;
+using SilpoBonus.core.checkout;
+using SilpoBonus.core.enums;
+using SilpoBonus.core.offers;
 
-namespace SilpoBonus.tests
+using SilpoBonus.features.condition;
+using SilpoBonus.features.discount;
+using SilpoBonus.features.offers;
+using SilpoBonus.features.reward;
+
+namespace SilpoBonus.Tests
 {
     public class CheckoutServiceTest
     {
@@ -27,7 +33,6 @@ namespace SilpoBonus.tests
             checkoutService.OpenCheck();
         }
        
-
         [Fact]
         public void closeCheck__withOneProduct()
         {
@@ -74,7 +79,11 @@ namespace SilpoBonus.tests
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.AddOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            TotalCostCondition condition = new TotalCostCondition(6);
+            FlatReward reward = new FlatReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
+
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
@@ -85,7 +94,11 @@ namespace SilpoBonus.tests
         public void useOffer__whenCostLessThanRequired__doNothing() {
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.AddOffer(new AnyGoodsOffer(6, 2, offer_time_1d));
+            TotalCostCondition condition = new TotalCostCondition(6);
+            FlatReward reward = new FlatReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
+
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
@@ -95,85 +108,99 @@ namespace SilpoBonus.tests
         [Fact]
         void useOffer__factorByCategory() {
             checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(bred_3);
+
+            ByCategoryCondition condition = new ByCategoryCondition(Category.MILK);
+            FactorReward reward = new FactorReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
+
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 20);
+        }
+
+        [Fact]
+        void useOffer__flatByTrademark() {
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(bred_3);
+
+            ICondition condition = new ByTrademarkCondition(Trademark.AMSZ);
+            IReward reward = new FlatReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
+
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 16);
+        }
+
+        [Fact]
+        void useOffer__flatByProduct() {
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            checkoutService.AddOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_1d));
+            ICondition condition = new ByProductCondition(milk_7);
+            IReward reward = new FlatReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
+
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 31);
-        }
-
-        [Fact]
-        void useOffer__factorByTrademark() {
-            checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(bred_3);
-
-            checkoutService.AddOffer(new FactorByTrademarkOffer(Trademark.AMSZ, 2, offer_time_1d));
-            checkoutService.UseOffer();
-            Check check = checkoutService.CloseCheck();
-
-            Assert.Equal(check.GetTotalPoints(), 47);
-        }
-
-        [Fact]
-        void useOffer__factorByProduct() {
-            checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(bred_3);
-
-            checkoutService.AddOffer(new FactorByProductOffer(milk_11, 2, offer_time_1d));
-            checkoutService.UseOffer();
-            Check check = checkoutService.CloseCheck();
-
-            Assert.Equal(check.GetTotalPoints(), 47);
+            Assert.Equal(check.GetTotalPoints(), 12);
         }
 
         [Fact]
         void useOffer__DiscountByProduct() {
             checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(bred_3);
-            Product discountProduct = new Product(11, "Milk", Trademark.AMSZ);
 
+            ByProductCondition condition = new ByProductCondition(milk_11);
+            IDiscount discount = new PercentDiscount(milk_11, 50);
+            DiscountOffer offer = new DiscountOffer(discount, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
 
-            checkoutService.AddOffer(new PercentDiscountOffer(discountProduct, 50, offer_time_1d));
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalCost(), 25);
+            Assert.Equal(check.GetTotalCost(), 9);
         }
 
         [Fact]
         void useOffer__GiftByProduct() {
             checkoutService.AddProduct(milk_11);
-            checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(bred_3);
-            Product gift = new Product(0, "Cookie");
 
+            ByProductCondition condition = new ByProductCondition(milk_11);
+            IDiscount discount = new GiftDiscount(bred_3);
+            DiscountOffer offer = new DiscountOffer(discount, condition, offer_time_1d);
+            checkoutService.AddOffer(offer);
 
-            checkoutService.AddOffer(new GiftForPurchaseOffer(milk_11, gift, offer_time_1d));
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 25);
-            Assert.Equal(check.GetTotalCost(), 25);
-            Assert.Equal(check.GetProductCount(), 5);
+            Assert.Equal(check.GetTotalPoints(), 11);
+            Assert.Equal(check.GetTotalCost(), 11);
+            Assert.Equal(check.GetSameProducts(bred_3).Count, 1);
         }
 
         [Fact]
         void offer__timeExpiered() {
             checkoutService.AddProduct(milk_7);
-            checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
             
-            checkoutService.AddOffer(new FactorByCategoryOffer(Category.MILK, 2, offer_time_expiered));
+            TotalCostCondition condition = new TotalCostCondition(6);
+            FlatReward reward = new FlatReward(2);
+            BonusOffer offer = new BonusOffer(reward, condition, offer_time_expiered);
+            checkoutService.AddOffer(offer);
+            
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 17);
+            Assert.Equal(check.GetTotalPoints(), 10);
         }
     }
 }
