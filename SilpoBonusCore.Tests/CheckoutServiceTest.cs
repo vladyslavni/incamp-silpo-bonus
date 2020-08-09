@@ -145,6 +145,23 @@ namespace SilpoBonusCore.Tests
         }
 
         [Fact]
+        void useOffer__GiftByProduct() {
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(bred_3);
+            Product gift = new Product(0, "Cookie");
+
+
+            checkoutService.AddOffer(new GiftForPurchaseOffer(milk_11, gift, offer_time_1d));
+            checkoutService.UseOffer();
+            Check check = checkoutService.CloseCheck();
+
+            Assert.Equal(check.GetTotalPoints(), 25);
+            Assert.Equal(check.GetTotalCost(), 25);
+            Assert.Equal(check.GetProductCount(), 5);
+        }
+
+        [Fact]
         void offer__timeExpiered() {
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(milk_7);

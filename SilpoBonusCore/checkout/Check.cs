@@ -50,7 +50,7 @@ namespace SilpoBonusCore
                     .Aggregate(0, (a, b) => a + b);
         }
         
-        public List<Product> GetDiscountProducts(Product product) 
+        public List<Product> GetSameProducts(Product product) 
         {
             return products.FindAll(p => p.Equals(product));
         }
@@ -58,6 +58,11 @@ namespace SilpoBonusCore
         public void AddSavingMoney(int money)
         {
             this.savingMoney += money;
+        }
+
+        public int GetProductCount()
+        {
+            return products.Count;
         }
     }
 }

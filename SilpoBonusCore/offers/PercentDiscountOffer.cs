@@ -16,7 +16,7 @@ namespace SilpoBonusCore
 
         public override void apply(Check check)
         {
-            List<Product> products = check.GetDiscountProducts(product);
+            List<Product> products = check.GetSameProducts(product);
 
             double divider = 100 / discount;
             products.Select(prod => prod.price)
@@ -24,7 +24,6 @@ namespace SilpoBonusCore
                 .ToList()
                 .ForEach(price => check.AddSavingMoney(price));
         }
-
 
         public override bool IsSatisfiesCondition(Check check)
         {
