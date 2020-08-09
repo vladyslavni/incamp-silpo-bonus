@@ -1,5 +1,6 @@
 using SilpoBonus.core.offers;
 using SilpoBonus.core.checkout;
+using SilpoBonus.features.condition;
 using SilpoBonus.features.reward;
 
 namespace SilpoBonus.features
@@ -8,9 +9,9 @@ namespace SilpoBonus.features
     {
         IReward iReward;
 
-        public BonusOffer(IReward reward, DateTime expirationDate) : base(expirationDate)
+        public BonusOffer(IReward iReward, ICondition iConition, DateTime expirationDate) : base(iCondition, expirationDate)
         {
-            this.reward = reward;
+            this.iReward = iReward;
         }
 
         public override void apply(Check check) 
