@@ -29,6 +29,5 @@ namespace SilpoBonusCore
         {
             return check.GetCostByProduct(product) > 0;
         }
-
     }
 }

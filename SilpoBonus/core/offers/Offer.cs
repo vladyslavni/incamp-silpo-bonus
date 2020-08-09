@@ -1,6 +1,6 @@
 using System;
 
-namespace SilpoBonusCore {
+namespace SilpoBonus.core.offers {
     public abstract class Offer
     {
         public readonly DateTime expirationDate;
@@ -9,6 +9,7 @@ namespace SilpoBonusCore {
         {
             this.expirationDate = expirationDate;
         }
+        
         public abstract void apply(Check check);
     
         public abstract bool IsSatisfiesCondition(Check check);

@@ -2,13 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SilpoBonusCore
+namespace SilpoBonus.core.checkout
 {
     public class Check
     {
         private List<Product> products = new List<Product>();
         private int points = 0;
-        private int savingMoney = 0;
+
+        private int savedMoney = 0;
+
         public int GetTotalCost()
         {
             return products.Sum(product => product.price) - savingMoney;
@@ -27,6 +29,11 @@ namespace SilpoBonusCore
         public void AddPoints(int points) 
         {
             this.points += points;
+        }
+
+        public void AddSavedMoney(int savedMoney)
+        {
+            this.savedMoney = savedMoney;
         }
 
         public int GetCostByCategory(Category category) 
@@ -53,16 +60,6 @@ namespace SilpoBonusCore
         public List<Product> GetSameProducts(Product product) 
         {
             return products.FindAll(p => p.Equals(product));
-        }
-
-        public void AddSavingMoney(int money)
-        {
-            this.savingMoney += money;
-        }
-
-        public int GetProductCount()
-        {
-            return products.Count;
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace SilpoBonusCore
+namespace SilpoBonus.core.checkout
 {
     public class Product
     {

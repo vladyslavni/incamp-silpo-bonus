@@ -15,11 +15,6 @@ namespace SilpoBonusCore
             this.factor = factor;
         }
 
-        public override void apply(Check check) 
-        {
-            int points = check.GetCostByProduct(product);
-            check.AddPoints(points * (factor - 1));    
-        }
 
         public override bool IsSatisfiesCondition(Check check) 
         {

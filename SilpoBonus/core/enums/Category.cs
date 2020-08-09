@@ -1,4 +1,4 @@
-namespace SilpoBonusCore {
+namespace SilpoBonus.core.enums {
     public enum Category {
         
         NONE,

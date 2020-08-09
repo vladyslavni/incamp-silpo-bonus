@@ -1,7 +1,9 @@
 using System;
 using Xunit;
+using SilpoBonus.core;
+using SilpoBonus.feaures;
 
-namespace SilpoBonusCore.Tests
+namespace SilpoBonus.tests
 {
     public class CheckoutServiceTest
     {

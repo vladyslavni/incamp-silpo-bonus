@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SilpoBonusCore
+namespace SilpoBonus.core.checkout
 {
     public class CheckoutService
     {
