@@ -1,3 +1,5 @@
+using SilpoBonus.core.checkout;
+
 namespace SilpoBonus.features.discount
 {
     public class GiftDiscount : IDiscount

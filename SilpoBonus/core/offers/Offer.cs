@@ -1,10 +1,11 @@
 using System;
 using SilpoBonus.features.condition;
+using SilpoBonus.core.checkout;
 
 namespace SilpoBonus.core.offers {
     public abstract class Offer
     {
-        private ICondition iCondition;
+        public ICondition iCondition;
         public readonly DateTime expirationDate;
 
         public Offer(ICondition iCondition, DateTime expirationDate) 

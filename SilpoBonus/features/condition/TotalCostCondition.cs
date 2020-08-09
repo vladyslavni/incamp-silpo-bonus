@@ -11,7 +11,7 @@ namespace SilpoBonus.features.condition
             this.totalCost = totalCost;
         }
 
-        public override bool IsSatisfies(Check check)
+        public bool IsSatisfies(Check check)
         {
             return totalCost <= check.GetTotalCost();
         }

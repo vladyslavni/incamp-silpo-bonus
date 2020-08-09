@@ -12,7 +12,7 @@ namespace SilpoBonus.features.condition
             this.category = category;
         }
 
-        public override bool IsSatisfies(Check check)
+        public bool IsSatisfies(Check check)
         {
             return check.GetCostByCategory(category) > 0;
         }

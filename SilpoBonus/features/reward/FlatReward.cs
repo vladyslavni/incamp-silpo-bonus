@@ -11,7 +11,7 @@ namespace SilpoBonus.features.reward
             this.points = points;
         }
 
-        public override int CalcPoints(Check check)
+        public int CalcPoints(Check check)
         {
             return check.GetTotalCost() + points;
         }

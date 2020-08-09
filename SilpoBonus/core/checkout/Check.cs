@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SilpoBonus.core.enums;
 
 namespace SilpoBonus.core.checkout
 {
@@ -13,7 +14,7 @@ namespace SilpoBonus.core.checkout
 
         public int GetTotalCost()
         {
-            return products.Sum(product => product.price) - savingMoney;
+            return products.Sum(product => product.price) - savedMoney;
         }
 
         public void AddProduct(Product product)

@@ -7,12 +7,12 @@ namespace SilpoBonus.features.condition
     {
         private Trademark trademark;
 
-        public TotalCostCondition(Trademark trademark)
+        public ByTrademarkCondition(Trademark trademark)
         {
             this.trademark = trademark;
         }
 
-        public override bool IsSatisfies(Check check)
+        public bool IsSatisfies(Check check)
         {
             return check.GetCostByTrademark(trademark) > 0;
         }

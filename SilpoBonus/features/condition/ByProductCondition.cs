@@ -11,7 +11,7 @@ namespace SilpoBonus.features.condition
             this.product = product;
         }
 
-        public override bool IsSatisfies(Check check)
+        public bool IsSatisfies(Check check)
         {
             return check.GetCostByProduct(product) > 0;
         }

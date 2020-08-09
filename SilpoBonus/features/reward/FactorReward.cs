@@ -1,19 +1,21 @@
 using SilpoBonus.core.checkout;
+using SilpoBonus.core.enums;
 
 namespace SilpoBonus.features.reward
 {
     public class FactorReward : IReward
     {
         public readonly int factor;
-
-        public FactorReward(int factor)
+        public readonly Category category;
+        public FactorReward(int factor, Category category)
         {
             this.factor = factor;
+            this.category = category;
         }
 
-        public override int CalcPoints(Check check)
+        public int CalcPoints(Check check)
         {
-            int points = check.GetCostByCategory(product);
+            int points = check.GetCostByCategory(category);
             return points * (factor - 1);   
         }
     }

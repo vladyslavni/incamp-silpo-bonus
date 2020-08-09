@@ -1,3 +1,4 @@
+using System;
 using SilpoBonus.core.offers;
 using SilpoBonus.core.checkout;
 using SilpoBonus.features.condition;
@@ -7,16 +8,16 @@ namespace SilpoBonus.features
 {
     public class BonusOffer : Offer
     {
-        IReward iReward;
+        private IReward iReward;
 
-        public BonusOffer(IReward iReward, ICondition iConition, DateTime expirationDate) : base(iCondition, expirationDate)
+        public BonusOffer(IReward iReward, ICondition iCondition, DateTime expirationDate) : base(iCondition, expirationDate)
         {
             this.iReward = iReward;
         }
 
         public override void apply(Check check) 
         {
-            int points = iReward.CalcPoint(check);
+            int points = iReward.CalcPoints(check);
             check.AddPoints(points);    
         }
     }

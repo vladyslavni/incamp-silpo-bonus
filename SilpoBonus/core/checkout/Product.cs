@@ -1,4 +1,5 @@
 using System;
+using SilpoBonus.core.enums;
 
 namespace SilpoBonus.core.checkout
 {

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilpoBonusCore", "SilpoBonusCore\SilpoBonusCore.csproj", "{1663F12F-D43A-4C69-8253-49E14D93DA02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilpoBonus", "SilpoBonus\SilpoBonus.csproj", "{1663F12F-D43A-4C69-8253-49E14D93DA02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilpoBonusCore.Tests", "SilpoBonusCore.Tests\SilpoBonusCore.Tests.csproj", "{F3D85E12-C4EB-4345-BB5E-5AF3FD9FA27C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilpoBonus.Tests", "SilpoBonus.Tests\Tests.csproj", "{F3D85E12-C4EB-4345-BB5E-5AF3FD9FA27C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
