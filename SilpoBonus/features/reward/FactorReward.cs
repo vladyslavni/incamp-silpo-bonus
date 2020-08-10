@@ -17,7 +17,7 @@ namespace SilpoBonus.features.reward
 
         public int CalcPoints(Check check)
         {
-            return product.price * factor;   
+            return check.GetCostBy(product) * (factor - 1);   
         }
     }
 }

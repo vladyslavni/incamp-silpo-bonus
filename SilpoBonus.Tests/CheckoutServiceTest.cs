@@ -109,6 +109,7 @@ namespace SilpoBonus.Tests
         void useOffer__factorByCategory() {
             checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
             ICondition condition = new ByCategoryCondition(Category.MILK);
@@ -119,7 +120,7 @@ namespace SilpoBonus.Tests
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 31);
+            Assert.Equal(check.GetTotalPoints(), 45);
         }
 
         [Fact]

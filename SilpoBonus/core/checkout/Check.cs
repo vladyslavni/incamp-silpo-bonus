@@ -9,7 +9,6 @@ namespace SilpoBonus.core.checkout
     {
         private List<Product> products = new List<Product>();
         private int points = 0;
-
         private int savedMoney = 0;
 
         public int GetTotalCost()
