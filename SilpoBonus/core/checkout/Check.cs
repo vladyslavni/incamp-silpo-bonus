@@ -34,33 +34,33 @@ namespace SilpoBonus.core.checkout
 
         public void AddSavedMoney(int savedMoney)
         {
-            this.savedMoney = savedMoney;
+            this.savedMoney += savedMoney;
         }
 
-        public int GetCostByCategory(Category category) 
+        public int GetCostBy(Category category) 
         {
             return products.Where(p => p.category == category)
                     .Select(p => p.price)
-                    .Aggregate(0, (a, b) => a + b);
+                    .Sum();
         }
 
-        public int GetCostByTrademark(Trademark trademark) 
+        public int GetCostBy(Trademark trademark) 
         {
             return products.Where(p => p.trademark == trademark)
                     .Select(p => p.price)
-                    .Aggregate(0, (a, b) => a + b);
+                    .Sum();
         }
 
-        public int GetCostByProduct(Product product) 
+        public int GetCostBy(Product product) 
         {
             return products.Where(p => p.Equals(product))
                     .Select(p => p.price)
-                    .Aggregate(0, (a, b) => a + b);
+                    .Sum();
         }
         
-        public List<Product> GetSameProducts(Product product) 
+        public int GetCountBy(Product product) 
         {
-            return products.FindAll(p => p.Equals(product));
+            return products.FindAll(p => p.Equals(product)).Count;      
         }
     }
 }

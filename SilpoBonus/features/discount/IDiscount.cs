@@ -4,6 +4,6 @@ namespace SilpoBonus.features.discount
 {
     public interface IDiscount
     {
-        Discount CalcDiscount(Check check);
+        int CalcDiscount(Check check);
     }
 }

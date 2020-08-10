@@ -14,7 +14,7 @@ namespace SilpoBonus.features.condition
 
         public bool IsSatisfies(Check check)
         {
-            return check.GetCostByCategory(category) > 0;
+            return check.GetCostBy(category) > 0;
         }
     }
 }

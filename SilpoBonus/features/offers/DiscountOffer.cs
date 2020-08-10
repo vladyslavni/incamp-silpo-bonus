@@ -17,10 +17,8 @@ namespace SilpoBonus.features.offers
 
         public override void apply(Check check)
         {
-            Discount discount = iDiscount.CalcDiscount(check);
-            int savedMoney = discount.product.price * discount.percent / 100;
-            
-            check.AddSavedMoney(savedMoney);
+            int price = iDiscount.CalcDiscount(check);
+            check.AddSavedMoney(price);
         }
     }
 }

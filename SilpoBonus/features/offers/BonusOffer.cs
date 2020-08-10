@@ -9,10 +9,12 @@ namespace SilpoBonus.features.offers
     public class BonusOffer : Offer
     {
         private IReward iReward;
+        private ICondition iCondition;
 
         public BonusOffer(IReward iReward, ICondition iCondition, DateTime expirationDate) : base(iCondition, expirationDate)
         {
             this.iReward = iReward;
+            this.iCondition = iCondition;
         }
 
         public override void apply(Check check) 

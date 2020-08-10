@@ -13,9 +13,9 @@ namespace SilpoBonus.features.discount
             this.percent = percent;
         }
 
-        public Discount CalcDiscount(Check check)
+        public int CalcDiscount(Check check)
         {
-            return new Discount(product, percent);
+            return (int) (check.GetCostBy(product) / (100 / percent));
         }
     }
 }

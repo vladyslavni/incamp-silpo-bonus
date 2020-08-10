@@ -5,15 +5,16 @@ namespace SilpoBonus.features.reward
     public class FlatReward : IReward
     {
         public readonly int points;
-
-        public FlatReward(int points)
+        public readonly Product product;
+        public FlatReward(int points, Product product)
         {
             this.points = points;
+            this.product = product;
         }
 
         public int CalcPoints(Check check)
         {
-            return points;
+            return check.GetCountBy(product) * points;
         }
     }
 }

@@ -80,7 +80,7 @@ namespace SilpoBonus.Tests
             checkoutService.AddProduct(bred_3);
 
             TotalCostCondition condition = new TotalCostCondition(6);
-            FlatReward reward = new FlatReward(2);
+            FlatReward reward = new FlatReward(2, milk_7);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
@@ -95,7 +95,7 @@ namespace SilpoBonus.Tests
             checkoutService.AddProduct(bred_3);
 
             TotalCostCondition condition = new TotalCostCondition(6);
-            FlatReward reward = new FlatReward(2);
+            FlatReward reward = new FlatReward(2, bred_3);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
@@ -108,53 +108,57 @@ namespace SilpoBonus.Tests
         [Fact]
         void useOffer__factorByCategory() {
             checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
-            ByCategoryCondition condition = new ByCategoryCondition(Category.MILK);
-            FactorReward reward = new FactorReward(2);
+            ICondition condition = new ByCategoryCondition(Category.MILK);
+            IReward reward = new FactorReward(2, milk_7);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 20);
+            Assert.Equal(check.GetTotalPoints(), 31);
         }
 
         [Fact]
         void useOffer__flatByTrademark() {
             checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(bred_3);
 
             ICondition condition = new ByTrademarkCondition(Trademark.AMSZ);
-            IReward reward = new FlatReward(2);
+            IReward reward = new FlatReward(2, milk_11);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 16);
+            Assert.Equal(check.GetTotalPoints(), 29);
         }
 
         [Fact]
         void useOffer__flatByProduct() {
             checkoutService.AddProduct(milk_7);
+            checkoutService.AddProduct(milk_7);
             checkoutService.AddProduct(bred_3);
 
             ICondition condition = new ByProductCondition(milk_7);
-            IReward reward = new FlatReward(2);
+            IReward reward = new FlatReward(2, milk_7);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 12);
+            Assert.Equal(check.GetTotalPoints(), 21);
         }
 
         [Fact]
         void useOffer__DiscountByProduct() {
+            checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(bred_3);
 
@@ -166,25 +170,25 @@ namespace SilpoBonus.Tests
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalCost(), 9);
+            Assert.Equal(check.GetTotalCost(), 14);
         }
 
         [Fact]
         void useOffer__GiftByProduct() {
             checkoutService.AddProduct(milk_11);
+            checkoutService.AddProduct(milk_11);
             checkoutService.AddProduct(bred_3);
 
             ByProductCondition condition = new ByProductCondition(milk_11);
-            IDiscount discount = new GiftDiscount(bred_3);
+            IDiscount discount = new GiftDiscount(milk_11, bred_3);
             DiscountOffer offer = new DiscountOffer(discount, condition, offer_time_1d);
             checkoutService.AddOffer(offer);
 
             checkoutService.UseOffer();
             Check check = checkoutService.CloseCheck();
 
-            Assert.Equal(check.GetTotalPoints(), 11);
-            Assert.Equal(check.GetTotalCost(), 11);
-            Assert.Equal(check.GetSameProducts(bred_3).Count, 1);
+            Assert.Equal(check.GetTotalPoints(), 22);
+            Assert.Equal(check.GetTotalCost(), 22);
         }
 
         [Fact]
@@ -193,7 +197,7 @@ namespace SilpoBonus.Tests
             checkoutService.AddProduct(bred_3);
             
             TotalCostCondition condition = new TotalCostCondition(6);
-            FlatReward reward = new FlatReward(2);
+            FlatReward reward = new FlatReward(2, milk_7);
             BonusOffer offer = new BonusOffer(reward, condition, offer_time_expiered);
             checkoutService.AddOffer(offer);
             

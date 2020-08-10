@@ -1,3 +1,4 @@
+using System.Linq;
 using System;
 using SilpoBonus.features.condition;
 using SilpoBonus.core.checkout;
@@ -23,8 +24,7 @@ namespace SilpoBonus.core.offers {
 
         public void TryToApply(Check check)
         {
-            if (iCondition.IsSatisfies(check) && IsValid())
-            {
+            if(IsValid() && iCondition.IsSatisfies(check)) {
                 apply(check);
             }
         }
